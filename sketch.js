@@ -119,10 +119,10 @@ function loadMNISTLabels(labelsArray, offset) {
         labels.push(l);
     }
     return labels;
-}
+}   
 
 function showSampleConvolution() {
-    brain.predict(random(trainer), true, 0, 0);
+    brain.predict(random(trainer).img, true, 0, 0);
 }
 
 function trainBrain(n) {
