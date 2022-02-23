@@ -122,7 +122,7 @@ function loadMNISTLabels(labelsArray, offset) {
 }
 
 function showSampleConvolution() {
-    brain.predict(trainer[0].img, true, 0, 0);
+    brain.predict(random(trainer), true, 0, 0);
 }
 
 function trainBrain(n) {
