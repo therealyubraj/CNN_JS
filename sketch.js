@@ -17,7 +17,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(300, 300);
+    createCanvas(280, 280);
 
     background(0);
     nn = new NN(2, 10, 1, 2);
@@ -32,6 +32,7 @@ function setup() {
     let clearButton = select('#clearButton');
     let saveButton = select('#saveButton');
     let loadButton = select('#loadButton');
+    let guessButton = select('#guessButton');
 
     testButton.mousePressed(function () {
         testBrain(testIter);
@@ -52,6 +53,9 @@ function setup() {
         loadJSON('brain.json', function (data) {
             brain = CNN.deserialize(data);
         });
+    });
+    guessButton.mousePressed(function () {
+        guessFromScreen();
     });
 
     allTrainImages.forEach((img, i) => {
@@ -77,7 +81,11 @@ function setup() {
 }
 
 function draw() {
-
+    if (mouseIsPressed) {
+        stroke(255);
+        strokeWeight(20);
+        line(pmouseX, pmouseY, mouseX, mouseY);
+    }
 }
 
 
@@ -119,7 +127,7 @@ function loadMNISTLabels(labelsArray, offset) {
         labels.push(l);
     }
     return labels;
-}   
+}
 
 function showSampleConvolution() {
     brain.predict(random(trainer).img, true, 0, 0);
@@ -182,4 +190,33 @@ function testNN() {
     console.log(nn.predict([1, 1])[0]);
     console.log(nn.predict([1, 0])[0]);
     console.log(nn.predict([0, 1])[0]);
+}
+
+function guessFromScreen() {
+    let screenImg = createImage(28, 28);
+    screenImg.copy(get(), 0, 0, width, height, 0, 0, 28, 28);
+    screenImg.loadPixels();
+    let screenPixels = [];
+    for (let i = 0; i < screenImg.pixels.length; i += 4) {
+        screenPixels.push(screenImg.pixels[i]);
+    }
+    screenPixels = greyToMany(screenPixels, initChannels);
+
+    let screenChannels = [];
+    screenPixels.forEach((pixels) => {
+        let channel = new CNNChannel(pixels, 28, 28);
+        screenChannels.push(channel);
+    });
+    let screenCNNImg = new CNNImage(screenChannels, CNN.imgWidth, CNN.imgHeight, screenChannels.length);
+    let prediction = brain.predict(screenCNNImg);
+    let highestInd = prediction.indexOf(Math.max(...prediction));
+    let sum = prediction.reduce((a, b) => a + b);
+    prediction.forEach((p, i) => {
+        prediction[i] = p / sum;
+        console.log(i + ": " + prediction[i].toFixed(2) * 100 + "%");
+    });
+    console.log("-----------------------------------------------");
+    console.log("-----------------------------------------------");
+    console.log("-----------------------------------------------");
+    document.getElementById("computerGuess").innerHTML = "Computer guessed " + highestInd;
 }
