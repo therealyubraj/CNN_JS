@@ -10,10 +10,10 @@ let trainIter = 1, testIter = 1;
 let trainer = [], tester = [];
 
 function preload() {
-    mnistTrainImages = loadBytes('train-images.idx3-ubyte');
-    mnistTrainLabels = loadBytes('train-labels.idx1-ubyte');
-    mnistTestImages = loadBytes('t10k-images.idx3-ubyte');
-    mnistTestLabels = loadBytes('t10k-labels.idx1-ubyte');
+//     mnistTrainImages = loadBytes('train-images.idx3-ubyte');
+//     mnistTrainLabels = loadBytes('train-labels.idx1-ubyte');
+//     mnistTestImages = loadBytes('t10k-images.idx3-ubyte');
+//     mnistTestLabels = loadBytes('t10k-labels.idx1-ubyte');
 }
 
 function setup() {
