@@ -8,9 +8,6 @@
 
     <title>CNN</title>
 
-    <!-- <script src="libraries/p5.js"></script>
-	<script src="libraries/p5.dom.js"></script>
-	<script src="libraries/p5.sound.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="Matrix.js"></script>
     <script src="CNNChannel.js"></script>
@@ -21,35 +18,84 @@
     <script src="trainer.js"></script>
     <script src="sketch.js"></script>
 
-
     <style>
         body {
             margin: 0;
-            padding: 0;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #111;
+            color: white;
+            font-family: sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .text {
+            max-width: 320px;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        #canvas-holder {
+            margin: 10px 0;
         }
 
         canvas {
-            margin: auto;
+            display: block;
+            border: 1px solid #444;
+        }
+
+        .buttons {
+            margin-top: 10px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #computerGuess {
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body>
-    <button id="testButton">Test</button>
-    <button id="trainButton">Train</button>
-    <button id="showButton">Show</button>
-    <button id="saveButton">Save</button>
-    <button id="loadButton">Load</button>
-    <button id="clearButton">Clear</button>
-    <button id="guessButton">Guess</button>
-    <br>
-    <div>
-        <p id="computerGuess">
-            Click on the "Load" button to load pre-trained network.
-            <br>You can draw on the black canvas below using your mouse.
-            <br>Click on "Guess" button above and the guess of CNN will show here.
-            <br>Click "Clear" to clear the canvas.
-        </p>
+    <div class="container">
+
+        <!-- TEXT -->
+        <div class="text">
+            <p>
+                You can draw on the black canvas using your mouse.<br>
+                Click "Guess" to see the prediction.<br>
+                Click "Clear" to reset.
+            </p>
+        </div>
+
+        <!-- CANVAS goes HERE -->
+        <div style="display: flex;gap: 40px;">
+            <div id="canvas-holder"></div>
+            <p id="computerGuess"></p>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="buttons">
+            <button id="clearButton">Clear</button>
+            <button id="guessButton">Guess</button>
+        </div>
+
+        <!-- OUTPUT -->
+
     </div>
 </body>
 
